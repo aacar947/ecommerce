@@ -1,0 +1,28 @@
+.circular-progress-bar {
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.circular-progress-bar::before {
+  content: attr(aria-valuenow) '%';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.circular-progress-bar.completed {
+  animation: fade-out 0.5s ease forwards 0.5s;
+}
+
+.progress-bar {
+  stroke: var(--dark-gray);
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  transition: stroke-dashoffset 0.35s ease;
+}

@@ -1,0 +1,98 @@
+#navbar-container {
+  position: sticky;
+  z-index: 99;
+  top: var(--nav-sticky-top);
+  background-color: var(--body-color);
+  height: var(--nav-height);
+  transition: var(--nav-bring-down-transition);
+}
+
+#navbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  height: 100%;
+}
+
+#navbar .logo {
+  margin-right: auto;
+}
+
+.profile-pic {
+  width: var(--profile-pic-size);
+  height: var(--profile-pic-size);
+  object-fit: cover;
+}
+
+.profile-pic-container {
+  width: var(--profile-pic-size);
+  height: var(--profile-pic-size);
+  border-radius: 9999px;
+  overflow: hidden;
+  background-color: var(--light-gray-100);
+}
+
+.nav-btn-group {
+  display: flex;
+  margin-left: 0;
+}
+
+.nav-btn-group-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  height: calc(var(--nav-height) - 12px);
+  width: calc(var(--nav-height) - 12px);
+}
+
+.toggle-search {
+  cursor: text;
+  padding: 0;
+  height: 32px;
+  max-width: 256px;
+  color: gray;
+  width: 100%;
+  height: 32px;
+  box-shadow: none;
+  margin: 0 8px;
+  padding: 0 4px;
+}
+
+.toggle-search:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+@media (max-width: 530px) {
+  .logo h2 {
+    display: none;
+  }
+}
+
+@media (max-width: 300px) {
+  .nav-btn-group-item {
+    display: none;
+  }
+
+  .toggle-search {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    width: fit-content;
+  }
+
+  .toggle-search .icon {
+    --icon-size: 24px !important;
+  }
+
+  .toggle-search > span {
+    display: none;
+  }
+
+  #nav-sidebar-btn {
+    display: block;
+  }
+}

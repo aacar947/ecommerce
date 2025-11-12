@@ -1,0 +1,142 @@
+.skeleton {
+  box-shadow: none;
+}
+
+.skeleton-body {
+  background: var(--skeleton-body-bg) !important;
+  border-radius: var(--container-border-radius);
+  cursor: default;
+}
+
+.skeleton-item-bg,
+.skeleton-item {
+  background: var(--skeleton-item-bg) !important;
+}
+
+.skeleton-text {
+  display: inline-block;
+}
+
+.skeleton-item {
+  position: relative;
+  overflow: hidden;
+  box-shadow: none;
+  width: 100%;
+  height: 1em;
+  border-radius: var(--element-border-radius);
+}
+
+.skeleton-item-margin {
+  margin-block: 2px;
+}
+
+.skeleton-item::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateX(-100%);
+  background-image: linear-gradient(90deg, transparent, var(--skeleton-shine-color), transparent);
+  animation: shine-through 2s ease infinite;
+}
+
+.skeleton-item-fit {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.skeleton-item-xxl {
+  height: var(--skeleton-item-xxl-height);
+}
+
+.skeleton-item-xl {
+  height: var(--skeleton-item-xl-height);
+}
+
+.skeleton-item-large {
+  height: var(--skeleton-item-large-height);
+}
+
+.skeleton-item-medium {
+  display: inline-block;
+  height: var(--skeleton-item-medium-height);
+}
+
+.skeleton-item-small {
+  height: var(--skeleton-item-small-height);
+}
+
+.skeleton-item-25 {
+  width: 25%;
+}
+
+.skeleton-item-50 {
+  width: 50%;
+}
+
+.skeleton-item-75 {
+  width: 75%;
+}
+
+.skeleton-item-80 {
+  width: 80%;
+}
+
+.skeleton-item-100px {
+  max-width: 100px;
+}
+
+.skeleton-item-175px {
+  max-width: 175px;
+}
+
+.skeleton-item-200px {
+  max-width: 200px;
+}
+
+.skeleton-item-300px {
+  max-width: 300px;
+}
+
+.skeleton-item-h-200px {
+  height: 200px;
+}
+
+.skeleton-item-min-h-200 {
+  min-height: 192px;
+}
+
+.skeleton-item-min-h-150 {
+  min-height: 128px;
+}
+
+.skeleton-image {
+  aspect-ratio: 1 / 1;
+}
+
+.skeleton-image-4-3 {
+  aspect-ratio: 4 / 3;
+}
+
+.carousel-body.skeleton {
+  overflow: hidden !important;
+}
+
+.carousel.skeleton {
+  flex: 0 0 auto !important;
+}
+
+.skeleton .image-viewer .image {
+  padding-top: 100% !important;
+}
+
+@keyframes shine-through {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}

@@ -1,0 +1,144 @@
+#quick-bar {
+  user-select: none;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  height: auto;
+  margin-top: var(--page-padding-y);
+  max-width: var(--page-max-width);
+  margin-inline: auto;
+  gap: 8px;
+}
+
+#quick-bar .btn-flat {
+  background-color: white;
+}
+
+.breadcrumbs-container {
+  display: flex;
+  position: relative;
+  border-radius: var(--element-border-radius);
+  overflow: hidden;
+  flex: 1 1 auto;
+  max-width: fit-content;
+  width: 50px;
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  text-transform: capitalize;
+  background-color: var(--light-gray-100);
+  padding: 4px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+}
+
+.breadcrumbs:nth-child(1) {
+  margin-left: 0;
+}
+
+.breadcrumbs li {
+  scroll-snap-align: start;
+  cursor: default;
+  white-space: nowrap;
+}
+
+.breadcrumbs li a:hover {
+  background-color: var(--light-gray-200);
+}
+
+.breadcrumbs li:has(a) {
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+.breadcrumbs li::after {
+  content: '\203A';
+  margin-inline: 2px;
+  color: var(--light-gray-600);
+}
+
+.breadcrumbs li:last-child::after {
+  display: none;
+}
+
+.breadcrumbs li a,
+.breadcrumbs li span {
+  display: inline-block;
+  border-radius: var(--element-border-radius);
+  text-decoration: none;
+  line-height: 1em;
+  padding: 0.4em;
+  color: inherit;
+}
+
+.breadcrumbs span {
+  display: inline-flex !important;
+  align-items: center;
+  font-weight: 600;
+}
+
+.breadcrumbs .home-crumb {
+  --icon-size: 1.4em;
+  padding-block: 0.2em;
+  height: 100%;
+}
+
+.breadcrumbs span .icon {
+  margin-right: 4px;
+}
+
+.categories-menu {
+  position: relative;
+  width: fit-content;
+}
+
+.categories-menu.active .categories-list {
+  display: block;
+}
+
+.categories-menu-btn:hover {
+  background-color: white;
+}
+
+.categories-list {
+  display: none;
+  position: absolute;
+  max-width: calc(100vw - var(--page-padding-x) * 2);
+  min-width: fit-content;
+  width: max-content;
+  z-index: 4;
+  top: 100%;
+  left: 0;
+  padding: 16px;
+  background-color: var(--form-color);
+  border-radius: var(--container-border-radius);
+  box-shadow: var(--container-shadow);
+}
+
+.categories-list a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.categories-list li {
+  cursor: pointer;
+}
+
+.categories-list li > a {
+  display: inline-block;
+  padding-block: 4px;
+  width: 100%;
+}
+
+.categories-list li:hover {
+  color: var(--confirm-color);
+}
+
+@media (max-width: 512px) {
+  .breadcrumbs {
+    font-size: 12px;
+  }
+}

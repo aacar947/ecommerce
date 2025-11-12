@@ -1,0 +1,33 @@
+.dialog {
+  width: fit-content;
+}
+
+.dialog-form {
+  background-color: var(--body-color);
+  border-radius: var(--element-border-radius);
+  max-width: 512px;
+  padding: 16px;
+  margin: 8px;
+}
+
+.dialog-form .btn-group {
+  justify-content: end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.dialog-form .btn {
+  max-width: 128px;
+  width: 100%;
+  flex: 1 1 fit-content;
+}
+
+.dialog-form > *,
+.dialog-content > * {
+  margin-bottom: 8px;
+}
+
+.dialog-form > *:last-child,
+.dialog-content > *:last-child {
+  margin-bottom: 0;
+}

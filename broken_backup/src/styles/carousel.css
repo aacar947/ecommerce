@@ -1,0 +1,112 @@
+.carousel-container {
+  flex: 1 1 var(--product-image-basis);
+  width: 100px;
+  min-width: var(--page-min-width);
+}
+
+.carousel {
+  overflow: hidden;
+  position: relative;
+  padding: 0 calc(var(--carousel-button-size) + var(--carousel-button-padding));
+}
+
+.carousel-body {
+  padding-block: 16px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: auto;
+  scroll-snap-type: x proximity;
+}
+
+.carousel > .carousel-btn {
+  border: none;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  padding: var(--carousel-button-padding) !important;
+  top: 50%;
+  transform: scale(1) translateY(-50%);
+  height: 100%;
+  z-index: 2;
+  transition: transform 100ms ease-in;
+  max-height: 256px;
+}
+
+.carousel > .carousel-btn .icon {
+  display: block;
+  width: var(--carousel-button-size) !important;
+  height: var(--carousel-button-size) !important;
+}
+
+.carousel-item {
+  padding-left: 22px;
+  scroll-snap-align: start;
+}
+
+.carousel > .carousel-btn.prev {
+  left: 0;
+}
+
+.carousel > .carousel-btn.next {
+  right: 0;
+}
+
+.carousel-title {
+  margin-bottom: 8px;
+  margin-left: var(--carousel-header-margin);
+  text-transform: uppercase;
+}
+
+.carousel-title-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.carousel-btn {
+  width: fit-content;
+}
+
+.carousel .scroll-indicator {
+  --indicator-color: white;
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-wrap: nowrap;
+}
+
+.carousel .scroll-indicator-item {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 2px solid var(--indicator-color);
+  margin: 0 4px;
+  transition: background-color 100ms ease-in;
+}
+
+.carousel .scroll-indicator-item.active {
+  background-color: var(--indicator-color);
+}
+
+@media (max-width: 640px) {
+  .carousel {
+    padding: 0;
+  }
+}
+
+@media (max-width: 328px) {
+  .carousel > .carousel-btn {
+    display: none !important;
+  }
+}
+
+@media (hover: hover) {
+  .carousel > .carousel-btn:hover {
+    transform: translateY(-50%) scale(1.2);
+  }
+}

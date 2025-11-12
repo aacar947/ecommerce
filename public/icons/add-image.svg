@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="48"
+   height="48"
+   viewBox="0 0 12.7 12.7"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1">
+    <filter
+       id="mask-powermask-path-effect5_inverse"
+       style="color-interpolation-filters:sRGB"
+       height="100"
+       width="100"
+       x="-50"
+       y="-50">
+      <feColorMatrix
+         id="mask-powermask-path-effect5_primitive1"
+         values="1"
+         type="saturate"
+         result="fbSourceGraphic" />
+      <feColorMatrix
+         id="mask-powermask-path-effect5_primitive2"
+         values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0 "
+         in="fbSourceGraphic" />
+    </filter>
+    <filter
+       id="mask-powermask-path-effect7_inverse"
+       style="color-interpolation-filters:sRGB"
+       height="100"
+       width="100"
+       x="-50"
+       y="-50">
+      <feColorMatrix
+         id="mask-powermask-path-effect7_primitive1"
+         values="1"
+         type="saturate"
+         result="fbSourceGraphic" />
+      <feColorMatrix
+         id="mask-powermask-path-effect7_primitive2"
+         values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0 "
+         in="fbSourceGraphic" />
+    </filter>
+    <filter
+       id="mask-powermask-path-effect8_inverse"
+       style="color-interpolation-filters:sRGB"
+       height="100"
+       width="100"
+       x="-50"
+       y="-50">
+      <feColorMatrix
+         id="mask-powermask-path-effect8_primitive1"
+         values="1"
+         type="saturate"
+         result="fbSourceGraphic" />
+      <feColorMatrix
+         id="mask-powermask-path-effect8_primitive2"
+         values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0 "
+         in="fbSourceGraphic" />
+    </filter>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath12">
+      <path
+         style="baseline-shift:baseline;display:none;overflow:visible;opacity:1;vector-effect:none;stroke-width:1;stroke-linecap:round;enable-background:accumulate;stop-color:#000000;stop-opacity:1"
+         d="m -4.6464844,5.8847655 a 0.396875,0.396875 0 0 0 -0.3964842,0.3984377 v 0.986328 H -6.03125 A 0.396875,0.396875 0 0 0 -6.4277345,7.6679686 0.396875,0.396875 0 0 0 -6.03125,8.064453 h 0.9882814 v 0.9863283 a 0.396875,0.396875 0 0 0 0.3964842,0.3984374 0.396875,0.396875 0 0 0 0.3964845,-0.3984374 V 8.064453 h 0.9882812 A 0.396875,0.396875 0 0 0 -2.8652345,7.6679686 0.396875,0.396875 0 0 0 -3.2617187,7.2695312 H -4.2499999 V 6.2832032 A 0.396875,0.396875 0 0 0 -4.6464844,5.8847655 Z"
+         id="path12" />
+      <path
+         id="lpe_path-effect12"
+         style="baseline-shift:baseline;display:inline;overflow:visible;opacity:1;vector-effect:none;stroke-width:1;stroke-linecap:round;enable-background:accumulate;stop-color:#000000;stop-opacity:1"
+         class="powerclip"
+         d="M -12.292126,0.0212662 H 2.9995406 V 15.312933 H -12.292126 Z m 7.6456416,5.8634993 a 0.396875,0.396875 0 0 0 -0.3964842,0.3984377 v 0.986328 H -6.03125 A 0.396875,0.396875 0 0 0 -6.4277345,7.6679686 0.396875,0.396875 0 0 0 -6.03125,8.064453 h 0.9882814 v 0.9863283 a 0.396875,0.396875 0 0 0 0.3964842,0.3984374 0.396875,0.396875 0 0 0 0.3964845,-0.3984374 V 8.064453 h 0.9882812 A 0.396875,0.396875 0 0 0 -2.8652345,7.6679686 0.396875,0.396875 0 0 0 -3.2617187,7.2695312 H -4.2499999 V 6.2832032 A 0.396875,0.396875 0 0 0 -4.6464844,5.8847655 Z" />
+    </clipPath>
+  </defs>
+  <g
+     id="g4"
+     transform="translate(0.30122815,0.24124424)">
+    <path
+       id="rect1"
+       style="fill:none;stroke:#000000;stroke-width:0.79375;stroke-linecap:round;stroke-linejoin:round"
+       d="M 9.1384485,11.741567 H 1.077528 V 0.47594451 H 7.8258209 L 10.008392,3.3273284 a 2.3428793,2.3428793 71.284004 0 1 0.482457,1.4240473 v 2.8493421" />
+    <g
+       id="g3"
+       transform="translate(-0.52106232,-0.73611973)">
+      <path
+         style="fill:#000000;fill-opacity:0.505423;stroke:none;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         d="M 4.1239576,8.0664057 2.3773744,9.6531684 v 0.9995276 a 0.52916667,0.52916667 45 0 0 0.5291667,0.529167 h 5.998553 L 5.3102463,8.0537133 a 0.89270321,0.89270321 179.387 0 0 -1.1862887,0.012692 z"
+         id="path3"
+         transform="translate(0.33503711,-0.52349548)" />
+      <circle
+         style="fill:#000000;fill-opacity:0.672451;stroke:none;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         id="path4"
+         cx="7.1960497"
+         cy="6.4631195"
+         r="0.79374999" />
+      <path
+         style="fill:#000000;fill-opacity:0.305857;stroke:none;stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+         d="m 4.3615128,7.9295952 -0.3800629,0.431092 2.5039186,2.1843798 0.4172296,4.8e-5 a 0.23510924,0.23510924 113.96228 0 0 0.174522,-0.392678 L 5.0661039,7.925403 a 0.47215339,0.47215339 179.65911 0 0 -0.7045911,0.00419 z"
+         id="path3-8"
+         transform="translate(2.7603556,0.12110013)" />
+    </g>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.79375;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+       d="m 7.3974272,0.59591227 0,2.52041263 a 0.79375,0.79375 45 0 0 0.79375,0.79375 h 2.0331258"
+       id="path2" />
+  </g>
+  <g
+     id="g5"
+     transform="translate(14.63994,2.3207759)">
+    <path
+       id="path5"
+       style="stroke-width:0.529167;stroke-linecap:round;stroke-linejoin:round"
+       d="M -2.0004594,7.6670995 A 2.6458333,2.6458333 0 0 1 -4.6462927,10.312933 2.6458333,2.6458333 0 0 1 -7.2921259,7.6670995 2.6458333,2.6458333 0 0 1 -4.6462927,5.0212662 2.6458333,2.6458333 0 0 1 -2.0004594,7.6670995 Z"
+       mask="none"
+       clip-path="url(#clipPath12)" />
+  </g>
+</svg>
