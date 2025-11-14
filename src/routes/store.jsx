@@ -1,8 +1,8 @@
 import '../styles/store.css';
 import '../styles/orders.css';
-import { memo, useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
+import { memo, use, useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import useStoreOrders from '../hooks/useStoreOrders';
-import { useSearchParams, Link } from 'react-router';
+import { useSearchParams, Link, useSubmit, useActionData } from 'react-router';
 import Grid, { Row, Col } from '../components/Grid';
 import OrderList from '../components/OrderList';
 import Icon from '../components/Icon';
@@ -236,7 +236,8 @@ function StoreProductCardSkeleton() {
 }
 
 function UpdateProduct() {
-  const product = useProductContext((s) => s?.product);
+  const submitForm = useSubmit();
+  const selectedProduct = useProductContext((s) => s?.product);
   const descRef = useRef();
   const { data: categories } = useCategories();
 
@@ -253,38 +254,41 @@ function UpdateProduct() {
   };
 
   const inputs = [
-    { type: 'text', name: 'title', placeholder: 'Title', defaultValue: product?.title, maxLength: 100, minLength: 6, required: true },
+    { type: 'text', name: 'title', placeholder: 'Title', defaultValue: selectedProduct?.title, maxLength: 100, minLength: 6, required: true },
     { type: 'textarea', name: 'description', placeholder: 'Description', maxLength: 1000, minLength: 30, required: true, ref: descRef },
-    { type: 'number', name: 'price', placeholder: 'Price', step: '0.01', defaultValue: product?.price, size: 'md', required: true },
-    { type: 'number', name: 'stock', placeholder: 'Stock', defaultValue: product?.stock, size: 'md', required: true },
-    { type: 'number', name: 'discountPercentage', placeholder: 'Discount Percentage', step: '0.01', defaultValue: product?.discountPercentage, size: 'md' },
-    { type: 'text', name: 'shippingInformation', placeholder: 'Shipping In (days)', defaultValue: product?.shippingInformation, size: 'md', required: true },
-    { type: 'text', name: 'brand', placeholder: 'Brand', defaultValue: product?.brand, size: 'md' },
-    { type: 'select', name: 'category', placeholder: 'Category', defaultValue: product?.category, size: 'md', required: true, options: categoryList },
-    { type: 'text', name: 'tags', placeholder: 'Tags', defaultValue: product?.tags?.join(', '), required: true, pattern: "^[A-Za-z]+(?:[\\s\\-'][A-Za-z]+)*(?:\\s*,\\s*[A-Za-z]+(?:[\\s\\-'][A-Za-z]+)*)*$" },
+    { type: 'number', name: 'price', placeholder: 'Price', step: '0.01', defaultValue: selectedProduct?.price, size: 'md', required: true },
+    { type: 'number', name: 'stock', placeholder: 'Stock', defaultValue: selectedProduct?.stock, size: 'md', required: true },
+    { type: 'number', name: 'discountPercentage', placeholder: 'Discount Percentage', step: '0.01', defaultValue: selectedProduct?.discountPercentage, size: 'md' },
+    { type: 'text', name: 'shippingInformation', placeholder: 'Shipping In (days)', defaultValue: selectedProduct?.shippingInformation, size: 'md', required: true },
+    { type: 'text', name: 'brand', placeholder: 'Brand', defaultValue: selectedProduct?.brand, size: 'md' },
+    { type: 'select', name: 'category', placeholder: 'Category', defaultValue: selectedProduct?.category, size: 'md', required: true, options: categoryList },
+    { type: 'text', name: 'tags', placeholder: 'Tags', defaultValue: selectedProduct?.tags?.join(', '), required: true, pattern: "^[A-Za-z]+(?:[\\s\\-'][A-Za-z]+)*(?:\\s*,\\s*[A-Za-z]+(?:[\\s\\-'][A-Za-z]+)*)*$" },
   ];
 
-  const handleSubmit = (e, changedFormData, fetcher) => {
+  const handleSubmit = (e, changedFormData) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const productId = formData.get('productId');
     if (productId) changedFormData.set('productId', productId);
     // How do I send the form data to the action function?
-    fetcher.submit(changedFormData, { method: 'post', action: '/store?tab=products' });
+    submitForm(changedFormData, { method: 'post', action: '/store?tab=products' });
   };
 
   useEffect(() => {
     // this is necessary for the textarea
-    if (product && descRef.current) descRef.current.value = product?.description;
+    if (selectedProduct && descRef.current) descRef.current.value = selectedProduct?.description;
     else if (descRef.current) descRef.current.value = '';
-  }, [product]);
+  }, [selectedProduct]);
 
-  const submittingMsg = product ? 'Updating Product...' : 'Creating Product...';
-  const successMsg = product ? 'Product Updated Successfully' : 'Product Created Successfully';
-  const submitText = product ? 'Update' : 'Create';
+  const submittingMsg = selectedProduct ? 'Updating Product...' : 'Creating Product...';
+  const submitText = selectedProduct ? 'Update' : 'Create';
+  const successMsg = (actionData) => {
+    const action = actionData?.action;
+    return `Product ${action} successfully`;
+  };
   return (
     <>
-      <h3>{product?.id ? 'Update Product' : 'Create New Product'}</h3>
+      <h3>{selectedProduct?.id ? 'Update Product' : 'Create New Product'}</h3>
       <UpdateForm
         onSubmit={handleSubmit}
         className='update-product'
@@ -297,7 +301,7 @@ function UpdateProduct() {
         successMsg={successMsg}
         submitBtnClass='confirm'
       >
-        {product?.id && <input type='hidden' name='productId' value={product?.id} />}
+        {selectedProduct?.id && <input type='hidden' name='productId' value={selectedProduct?.id} />}
         <ImageFilesProvider>
           <ImageUploader />
         </ImageFilesProvider>
@@ -342,7 +346,7 @@ function ImageUploader() {
   const handleRemove = async () => {
     if (!touchedByUser) setTouchedByUser(true);
     const message = selected.length === 1 ? 'this image' : `these ${selected.length} images`;
-    const res = await confirm({
+    const isConfirmed = await confirm({
       title: 'Remove',
       message: `Are you sure you want to remove ${message}?`,
       confirmText: 'Remove',
@@ -350,8 +354,7 @@ function ImageUploader() {
       confirmBtnClass: 'danger',
       cancelBtnClass: 'light-gray',
     });
-    console.log('remove confirm', res);
-    if (!res) return;
+    if (!isConfirmed) return;
     const newFiles = new Map(files);
     for (const name of selected) {
       const file = newFiles.get(name);
@@ -559,22 +562,24 @@ function Image({ file, url, onSelect }) {
 }
 
 function UpdateFormFooter() {
-  const fetcher = useUpdateFormContext((s) => s?.fetcher);
-  const data = fetcher.data?.data;
-  const action = fetcher.data?.action;
+  const selectedProduct = useProductContext((s) => s?.product);
+  const actionData = useUpdateFormContext((s) => s?.actionData);
+  const resetActionData = useUpdateFormContext((s) => s?.resetActionData);
+  const data = actionData?.data;
+  const action = actionData?.action;
   const slug = slugParser.slugify({ id: data?.id, title: data?.title });
 
   useEffect(() => {
-    console.log('data changed');
-  }, [data]);
+    resetActionData();
+  }, [selectedProduct, resetActionData]);
+
+  if (!action) return null;
 
   return (
     <div className='update-form-footer'>
-      {data && (
-        <p>
-          Product {action} successfully, checkout the <Link to={`/p/${slug}`}>product page</Link> for more details.
-        </p>
-      )}
+      <p>
+        Product {action} successfully, checkout the <Link to={`/p/${slug}`}>product page</Link> for more details.
+      </p>
     </div>
   );
 }
@@ -586,15 +591,11 @@ export async function action({ request }) {
   const data = Object.fromEntries(formData);
   if (data.images) data.images = formData.getAll('images');
 
-  console.log(data);
-
   if (productId) {
-    const res = await api.updateProduct(productId, data);
-    console.log(res);
-    return res.status === 200 ? { data: res.data, error: false, action: 'updated' } : { error: true, data: null, action: 'updated' };
+    const res = await api.updateProduct(productId, data).catch(console.log);
+    return res?.status === 200 ? { data: res.data, error: false, action: 'updated' } : { error: true, data: null, action: 'updated' };
   }
 
-  const res = await api.createProduct(data);
-  console.log(res);
-  return res.status === 201 ? { data: res.data, error: false, action: 'created' } : { error: true, data: null, action: 'created' };
+  const res = await api.createProduct(data).catch(console.log);
+  return res?.status === 201 ? { data: res.data, error: false, action: 'created' } : { error: true, data: null, action: 'created' };
 }

@@ -145,8 +145,7 @@ export async function action({ request: req }) {
   const res = await api.updateUser(userId, Object.fromEntries(form));
   return res.status === 200 ? { data: res.data, error: false } : { error: true, data: null };
 }
-const handle = {
+
+export const handle = {
   disableCategoryList: true,
 };
-
-export { handle };

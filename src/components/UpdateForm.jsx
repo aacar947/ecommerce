@@ -1,7 +1,6 @@
 import '../styles/spinner.css';
 import { useEffect, useRef, useState } from 'react';
 import Form from './Form';
-import useUser from '../hooks/useUser';
 import toast from 'react-hot-toast';
 import UpdateFormProvider from '../contexts/UpdateFormProvider';
 import useUpdateFormContext from '../hooks/useUpdateFormContext';
@@ -22,7 +21,6 @@ export default function UpdateForm(props) {
 }
 
 function UpdateFromContent({ inputs = [], title = '', onSubmit, headerContent, successMsg = 'Updated successfully.', errorMsg = 'Something went wrong.', submittingMsg = 'Updating...', children, ...rest }) {
-  const fetcher = useUpdateFormContext((s) => s?.fetcher);
   const setHasChanges = useUpdateFormContext((s) => s?.setHasChanges);
   const updateChanges = useUpdateFormContext((s) => s?.updateChanges);
   const changedFieldsRef = useUpdateFormContext((s) => s?.changedFieldsRef);
@@ -56,14 +54,14 @@ function UpdateFromContent({ inputs = [], title = '', onSubmit, headerContent, s
       else formData.append(name, value);
     }
 
-    if (onSubmit) onSubmit(e, formData, fetcher);
+    if (onSubmit) onSubmit(e, formData);
   };
 
   return (
     <div className='justify-self-center'>
       <FormHeader title={title} successMsg={successMsg} errorMsg={errorMsg} submittingMsg={submittingMsg} />
       {headerContent}
-      <Form {...rest} onSubmit={handleSubmit} fetcher={fetcher} inputs={inputs} onChange={onChange} noBtn>
+      <Form {...rest} onSubmit={handleSubmit} inputs={inputs} onChange={onChange} noBtn>
         {children}
         <SubmitBtn submitText={rest.submitText} submitBtnClass={rest.submitBtnClass} />
       </Form>
@@ -72,12 +70,11 @@ function UpdateFromContent({ inputs = [], title = '', onSubmit, headerContent, s
 }
 
 function SubmitBtn({ submitText, submitBtnClass }) {
-  const fetcher = useUpdateFormContext((s) => s?.fetcher);
   const hasChanges = useUpdateFormContext((s) => s?.hasChanges);
   const { state } = useNavigation();
   return (
     <div className='btn-container'>
-      <Btn className={submitBtnClass} type='submit' disabled={fetcher?.state === 'submitting' || state === 'submitting' || !hasChanges}>
+      <Btn className={submitBtnClass} type='submit' disabled={state === 'submitting' || !hasChanges}>
         {submitText}
       </Btn>
     </div>
@@ -85,37 +82,38 @@ function SubmitBtn({ submitText, submitBtnClass }) {
 }
 
 function FormHeader({ title, successMsg, errorMsg, submittingMsg }) {
-  const fetcher = useUpdateFormContext((s) => s?.fetcher);
+  const navigation = useNavigation();
+  const actionData = useUpdateFormContext((s) => s?.actionData);
   const toastId = useRef(null);
-  const refreshUser = useUser((s) => s.refreshUser);
   const [updateState, setUpdateState] = useState(null);
+  const _successMsg = typeof successMsg === 'function' ? successMsg(actionData) : successMsg;
+  const _errorMsg = typeof errorMsg === 'function' ? errorMsg(actionData) : errorMsg;
 
   useEffect(() => {
-    if (fetcher.state === 'submitting') {
+    if (navigation.state === 'submitting') {
       toastId.current = toast.loading(submittingMsg);
       setUpdateState(STATES.submitting);
-    } else if (fetcher.state === 'idle' && fetcher.data) {
-      if (fetcher.data.error) {
+    } else if (navigation.state === 'idle' && actionData) {
+      if (actionData.error) {
         setUpdateState(STATES.idle);
-        toast.error(errorMsg, { id: toastId.current });
+        toast.error(_errorMsg, { id: toastId.current });
       } else {
-        refreshUser();
-        toast.success(successMsg, { id: toastId.current });
+        toast.success(_successMsg, { id: toastId.current });
         setUpdateState(STATES.idle);
       }
     }
     return () => {
       if (toastId.current) toast.dismiss(toastId.current);
     };
-  }, [fetcher.state, fetcher.data, refreshUser]);
+  }, [navigation.state, actionData, setUpdateState, _successMsg, _errorMsg, submittingMsg]);
 
   return (
     <>
       <h2>{title}</h2>
       <div className='flex'>
-        {updateState === 'idle' && !fetcher.data?.error && fetcher.data?.data && <div className='success-msg'>{successMsg}</div>}
-        {updateState === 'idle' && fetcher.data?.error && <div className='error-msg'>{errorMsg}</div>}
-        {updateState && (
+        {updateState === 'idle' && !actionData?.error && actionData?.data && _successMsg && <div className='success-msg'>{_successMsg}</div>}
+        {updateState === 'idle' && actionData?.error && _errorMsg && <div className='error-msg'>{_errorMsg}</div>}
+        {updateState && updateState !== 'idle' && (
           <div className={'loader ' + STATES[updateState]}>
             <div className='spinner'>
               <div></div>
