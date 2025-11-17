@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="48"
+   height="48"
+   viewBox="0 0 12.7 12.7"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1">
+    <filter
+       id="mask-powermask-path-effect5_inverse"
+       style="color-interpolation-filters:sRGB"
+       height="100"
+       width="100"
+       x="-50"
+       y="-50">
+      <feColorMatrix
+         id="mask-powermask-path-effect5_primitive1"
+         values="1"
+         type="saturate"
+         result="fbSourceGraphic" />
+      <feColorMatrix
+         id="mask-powermask-path-effect5_primitive2"
+         values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0 "
+         in="fbSourceGraphic" />
+    </filter>
+    <filter
+       id="mask-powermask-path-effect7_inverse"
+       style="color-interpolation-filters:sRGB"
+       height="100"
+       width="100"
+       x="-50"
+       y="-50">
+      <feColorMatrix
+         id="mask-powermask-path-effect7_primitive1"
+         values="1"
+         type="saturate"
+         result="fbSourceGraphic" />
+      <feColorMatrix
+         id="mask-powermask-path-effect7_primitive2"
+         values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0 "
+         in="fbSourceGraphic" />
+    </filter>
+    <filter
+       id="mask-powermask-path-effect8_inverse"
+       style="color-interpolation-filters:sRGB"
+       height="100"
+       width="100"
+       x="-50"
+       y="-50">
+      <feColorMatrix
+         id="mask-powermask-path-effect8_primitive1"
+         values="1"
+         type="saturate"
+         result="fbSourceGraphic" />
+      <feColorMatrix
+         id="mask-powermask-path-effect8_primitive2"
+         values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0 "
+         in="fbSourceGraphic" />
+    </filter>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath12">
+      <path
+         style="baseline-shift:baseline;display:none;overflow:visible;opacity:1;vector-effect:none;stroke-width:1;stroke-linecap:round;enable-background:accumulate;stop-color:#000000;stop-opacity:1"
+         d="m -4.6464844,5.8847655 a 0.396875,0.396875 0 0 0 -0.3964842,0.3984377 v 0.986328 H -6.03125 A 0.396875,0.396875 0 0 0 -6.4277345,7.6679686 0.396875,0.396875 0 0 0 -6.03125,8.064453 h 0.9882814 v 0.9863283 a 0.396875,0.396875 0 0 0 0.3964842,0.3984374 0.396875,0.396875 0 0 0 0.3964845,-0.3984374 V 8.064453 h 0.9882812 A 0.396875,0.396875 0 0 0 -2.8652345,7.6679686 0.396875,0.396875 0 0 0 -3.2617187,7.2695312 H -4.2499999 V 6.2832032 A 0.396875,0.396875 0 0 0 -4.6464844,5.8847655 Z"
+         id="path12" />
+      <path
+         id="lpe_path-effect12"
+         style="baseline-shift:baseline;display:inline;overflow:visible;opacity:1;vector-effect:none;stroke-width:1;stroke-linecap:round;enable-background:accumulate;stop-color:#000000;stop-opacity:1"
+         class="powerclip"
+         d="M -12.292126,0.0212662 H 2.9995406 V 15.312933 H -12.292126 Z m 7.6456416,5.8634993 a 0.396875,0.396875 0 0 0 -0.3964842,0.3984377 v 0.986328 H -6.03125 A 0.396875,0.396875 0 0 0 -6.4277345,7.6679686 0.396875,0.396875 0 0 0 -6.03125,8.064453 h 0.9882814 v 0.9863283 a 0.396875,0.396875 0 0 0 0.3964842,0.3984374 0.396875,0.396875 0 0 0 0.3964845,-0.3984374 V 8.064453 h 0.9882812 A 0.396875,0.396875 0 0 0 -2.8652345,7.6679686 0.396875,0.396875 0 0 0 -3.2617187,7.2695312 H -4.2499999 V 6.2832032 A 0.396875,0.396875 0 0 0 -4.6464844,5.8847655 Z" />
+    </clipPath>
+  </defs>
+  <path
+     id="path1"
+     style="fill:none;stroke:#000000;stroke-width:0.79375;stroke-linecap:round;stroke-linejoin:round"
+     d="M 10.144977,11.043267 H 2.555023 A 0.78637499,0.78637499 59.271684 0 1 1.8642274,9.8811433 L 5.7056843,2.8188131 a 0.7213,0.7213 179.94262 0 1 1.2665686,-0.00127 l 3.8611941,7.064867 a 0.7845831,0.7845831 120.67094 0 1 -0.68847,1.1608553 z"
+     transform="translate(5.630707e-4,-0.24264937)" />
+  <text
+     xml:space="preserve"
+     style="font-size:7.05556px;line-height:1.25;font-family:Georgia;-inkscape-font-specification:'Georgia, Normal';text-decoration-color:#000000;fill:#000000;stroke-width:0.264583;-inkscape-stroke:none;stop-color:#000000"
+     x="5.1648865"
+     y="9.6450043"
+     id="text9"><tspan
+       id="tspan9"
+       style="stroke-width:0.264583"
+       x="5.1648865"
+       y="9.6450043">!</tspan></text>
+</svg>

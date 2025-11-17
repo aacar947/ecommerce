@@ -12,6 +12,7 @@ export default function useConfirm() {
 
   const [showModal, setShowModal] = useModal({
     Component: DialogBox,
+    className: 'confirm-modal flex',
     props: {
       ...confirmState?.props,
       onConfirm: () => handleClose(true),

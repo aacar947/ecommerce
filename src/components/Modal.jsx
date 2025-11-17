@@ -4,7 +4,7 @@ import '../styles/modal.css';
 import useEventListener from '../hooks/UseEventListener';
 
 export default function Modal({ options, active, setActive }) {
-  const { element, Component, props } = options;
+  const { element, Component, props, className } = options;
   const intendedTarget = useRef(null);
   const ref = useRef();
 
@@ -35,10 +35,12 @@ export default function Modal({ options, active, setActive }) {
     intendedTarget.current = e.target.id;
   };
 
+  const modalClass = (active ? 'active' : '') + (className && active ? ' ' + className : '');
+
   return (
     <>
       {createPortal(
-        <div ref={ref} id='modal-body' className={active ? 'active' : ''} onMouseDown={handleMouseDown} onClick={handleClick}>
+        <div ref={ref} id='modal-body' className={modalClass} onMouseDown={handleMouseDown} onClick={handleClick}>
           {element && element}
           {Component && <options.Component {...props} closeModal={() => setActive(false)} isModalOpen={active} />}
         </div>,

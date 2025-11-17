@@ -12,6 +12,8 @@
   -webkit-user-select: none;
   touch-action: none;
   pointer-events: none;
+  padding: var(--page-padding-y) var(--page-padding-x);
+  overflow: auto;
 }
 
 #modal-body.active {
