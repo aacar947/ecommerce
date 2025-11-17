@@ -125,11 +125,11 @@ function OrdersTab() {
 function ProductsTab() {
   return (
     <>
-      <meta name='description' content='Store Products' />
+      <meta name='description' content='Store | Products' />
       <title>Store | Products</title>
       <div className='store-products'>
         <ProductProvider>
-          <SearchProduct />
+          <ProductActions />
           <hr />
           <UpdateProduct />
         </ProductProvider>
@@ -138,7 +138,7 @@ function ProductsTab() {
   );
 }
 
-function SearchProduct() {
+function ProductActions() {
   const [query, setQuery] = useState('');
   const { data, isFetching, fetchNextPage, hasNextPage, limit } = useSearchStoreProducts(new URLSearchParams({ q: query }));
 
@@ -152,12 +152,14 @@ function SearchProduct() {
   };
   return (
     <>
-      <h3>Search Product</h3>
-      <SearchBar className='product-search flex' onSubmit={handleSearch} placeholder='Search by name, sku or id'>
-        <Btn type='submit' className='small-btn'>
-          Search
-        </Btn>
-      </SearchBar>
+      <div>
+        <SearchBar className='product-search flex' onSubmit={handleSearch} placeholder='Search by name, sku or id'>
+          <Btn type='submit' className='small-btn'>
+            Search
+          </Btn>
+        </SearchBar>
+        <ProductActionButtons />
+      </div>
       <SearchResults total={total} productCount={products?.length} fetchMore={fetchNextPage} hasMore={hasNextPage} fetchLimit={limit} products={products} isFetching={isFetching && query !== ''} />
     </>
   );
@@ -232,6 +234,15 @@ function StoreProductCardSkeleton() {
         </p>
       </div>
     </div>
+  );
+}
+
+function ProductActionButtons() {
+  return (
+    <>
+      <Btn className='small-btn'>Save</Btn>
+      <Btn className='small-btn'>Cancel</Btn>
+    </>
   );
 }
 
@@ -416,7 +427,7 @@ function ImageUploader() {
   return (
     <fieldset required className={'image-uploader flex-col' + (invalid && touchedByUser ? ' invalid' : '') + (valid ? ' valid' : '')}>
       <legend>Images</legend>
-      <ActionButtons onRemove={handleRemove} onRemoveAll={handleRemoveAll} onUpload={handleUpload} />
+      <ImageActionButtons onRemove={handleRemove} onRemoveAll={handleRemoveAll} onUpload={handleUpload} />
       <ImageList ref={inputRef} onChange={handleChange} />
       <hr />
       <p className='file-count note pale text-center'>
@@ -490,7 +501,7 @@ function ImageList({ ref, onChange }) {
   );
 }
 
-function ActionButtons({ onRemove, onRemoveAll, onUpload }) {
+function ImageActionButtons({ onRemove, onRemoveAll, onUpload }) {
   const selected = useImageFiles((s) => s?.selected);
   const filesCount = useImageFiles((s) => s?.files?.size);
   const files = useImageFiles((s) => s?.files);
