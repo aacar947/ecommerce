@@ -37,13 +37,13 @@ export default function Search() {
 
   return (
     <Grid name='search'>
-      <Col name='search-info' title={title}>
+      <Col name='search-info' title={'search results for ' + title}>
         <InfiniteProductsScroller
           title={`Results for "${title}"`}
           fetchLimit={limit}
           fetchMore={fetchNextPage}
           hasMore={hasNextPage}
-          isFetching={isFetching || data === undefined}
+          isFetching={isFetching}
           isLoading={isLoading}
           products={products}
           total={data?.pages[0]?.total}

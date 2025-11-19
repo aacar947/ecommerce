@@ -18,8 +18,11 @@ import useFilterValidation from '../hooks/useFilterValidation';
 
 const FiltersContext = createContext();
 export default function InfiniteProductsScroller({ title, products, isFetching, isLoading, hasMore, fetchMore, total, fetchLimit, tags }) {
+  const isLoadedRef = useRef(false);
   const [observerRef] = useObserver({
-    onIntersect: fetchMore,
+    onIntersect: () => {
+      fetchMore();
+    },
     enabled: hasMore && !isFetching,
     threshold: 1,
     rootMargin: '400px',
@@ -40,10 +43,15 @@ export default function InfiniteProductsScroller({ title, products, isFetching, 
     return [priceRange, categories, brands, shipsWw];
   }, [tags]);
 
+  useEffect(() => {
+    if (isLoadedRef.current) return;
+    if (products !== undefined) isLoadedRef.current = true;
+  }, [products]);
+
   return (
     <FilterProvider filters={filters}>
       <div className='scroller-wrapper'>
-        {!isLoading && <ScrollerHeader title={title} total={total} isFetching={isFetching} />}
+        {!isLoading && isLoadedRef.current && <ScrollerHeader title={title} total={total} />}
         {isLoading && <ScrollerHeaderSkeleton />}
         <InfiniteScroller products={products} isFetching={isFetching} fetchLimit={fetchLimit} total={total} />
         <ScrollerFooter total={total} productCount={products?.length} />

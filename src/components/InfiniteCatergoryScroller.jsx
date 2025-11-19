@@ -1,27 +1,28 @@
-import InfiniteProductsScroller from './InfiniteProductsScroller';
 import useProductCategory from '../hooks/useProductCategory';
 import { useEffect, useMemo } from 'react';
-import NotFound from '../routes/not-found';
-import Grid, { Col } from './Grid';
-import useBreadCrumbs from '../hooks/useBreadCrumbs';
-import useSlug from '../hooks/useSlug';
 import { useSearchParams } from 'react-router';
+import useBreadCrumbs from '../hooks/useBreadCrumbs';
+import NotFound from '../routes/not-found';
+import useSlug from '../hooks/useSlug';
+import InfiniteProductsScroller from './InfiniteProductsScroller';
+import Grid, { Col } from './Grid';
+import PageSpinner from './PageSpinner';
 
 export default function InfiniteCategoryScroller() {
   const [params] = useSearchParams();
   const { setCrumbs } = useBreadCrumbs();
   const { title, id } = useSlug();
-  const { data, isFetching, fetchNextPage, hasNextPage, limit, isLoading } = useProductCategory(title, params);
+  const { data, isFetching, fetchNextPage, hasNextPage, limit, isLoading } = useProductCategory(title, params, [title, id]);
 
-  const products = data?.pages?.reduce((acc, { products }) => [...acc, ...products], []) || [];
+  const products = data?.pages?.reduce((acc, { products }) => [...acc, ...products], []);
   const tags = useMemo(() => data?.pages[0]?.tags, [data]);
 
   useEffect(() => {
-    if (products.length === 0 || !title || !id) return;
+    if (products?.length === 0 || !title || !id) return;
     setCrumbs([{ title: title?.replaceAll('-', ' ') }]);
-  }, [title, id, setCrumbs, products.length]);
+  }, [title, id, setCrumbs, products?.length]);
 
-  if (!isFetching && products?.length === 0) return <NotFound />;
+  if (!isFetching && products?.length === 0 && !hasNextPage) return <NotFound />;
 
   const header = (
     <h2 className='title' style={{ textTransform: 'uppercase' }}>

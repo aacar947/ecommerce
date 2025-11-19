@@ -86,11 +86,15 @@ function SearchBar() {
 }
 
 function SearchResult({ query, setQuery, setShowModal }) {
-  const { data: result, isFetching } = useSearchQuery(new URLSearchParams({ q: query, limit: 16 }));
+  const { data: result, isFetching, fetchNextPage, hasNextPage } = useSearchQuery(new URLSearchParams({ q: query, limit: 16 }));
   const data = useMemo(() => result?.pages.reduce((acc, { products }) => [...acc, ...products], []), [result]) || [];
 
+  useEffect(() => {
+    if (query !== '') fetchNextPage();
+  }, [query]);
+
   if (isFetching) return <PageSpinner />;
-  if (data?.length === 0)
+  if (data?.length === 0 && !hasNextPage)
     return (
       <div className='search-result'>
         <NoResults size={128} />
