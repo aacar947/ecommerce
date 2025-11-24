@@ -1,6 +1,6 @@
+import '../styles/modal.css';
 import { createPortal } from 'react-dom';
 import { useEffect, useRef, useCallback } from 'react';
-import '../styles/modal.css';
 import useEventListener from '../hooks/UseEventListener';
 
 export default function Modal({ options, active, setActive }) {
