@@ -42,7 +42,7 @@ export default function useInfiniteProductQuery(queryFn, searchParams = new URLS
       if (data === undefined) refetch(options);
       else if (hasNextPage) fetchNextPage(options);
     },
-    [hasNextPage, isFetching, fetchNextPage, data, refetch]
+    [hasNextPage, isFetching, fetchNextPage, data === undefined, refetch]
   );
 
   useEffect(() => {

@@ -14,6 +14,7 @@ export default function ErrorBoundry() {
         You can go back to the <a href='/'>home page</a>.
       </p>
       {process.env.NODE_ENV === 'development' && <p className='bold'>{error.message}</p>}
+      {process.env.NODE_ENV === 'development' && <p className='bold'>{error.stack}</p>}
     </div>
   );
 }

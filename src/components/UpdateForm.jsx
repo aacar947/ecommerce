@@ -58,23 +58,23 @@ function UpdateFromContent({ inputs = [], title = '', onSubmit, headerContent, s
   };
 
   return (
-    <div className='justify-self-center'>
+    <>
       <FormHeader title={title} successMsg={successMsg} errorMsg={errorMsg} submittingMsg={submittingMsg} />
       {headerContent}
       <Form {...rest} onSubmit={handleSubmit} inputs={inputs} onChange={onChange} noBtn>
         {children}
-        <SubmitBtn submitText={rest.submitText} submitBtnClass={rest.submitBtnClass} />
+        <SubmitBtn submitText={rest.submitText} className={rest.submitBtnClass} />
       </Form>
-    </div>
+    </>
   );
 }
 
-function SubmitBtn({ submitText, submitBtnClass }) {
+export function SubmitBtn({ submitText, ...rest }) {
   const hasChanges = useUpdateFormContext((s) => s?.hasChanges);
   const { state } = useNavigation();
   return (
     <div className='btn-container'>
-      <Btn className={submitBtnClass} type='submit' disabled={state === 'submitting' || !hasChanges}>
+      <Btn {...rest} type='submit' disabled={state === 'submitting' || !hasChanges}>
         {submitText}
       </Btn>
     </div>
@@ -109,10 +109,10 @@ function FormHeader({ title, successMsg, errorMsg, submittingMsg }) {
 
   return (
     <>
-      <h2>{title}</h2>
+      {title && <h2>{title}</h2>}
       <div className='flex'>
-        {updateState === 'idle' && !actionData?.error && actionData?.data && _successMsg && <div className='success-msg'>{_successMsg}</div>}
-        {updateState === 'idle' && actionData?.error && _errorMsg && <div className='error-msg'>{_errorMsg}</div>}
+        {updateState === STATES.idle && actionData?.error === false && actionData?.data && _successMsg && <div className='success-msg'>{_successMsg}</div>}
+        {updateState === STATES.idle && actionData?.error && _errorMsg && <div className='error-msg'>{_errorMsg}</div>}
         {updateState && updateState !== 'idle' && (
           <div className={'loader ' + STATES[updateState]}>
             <div className='spinner'>
