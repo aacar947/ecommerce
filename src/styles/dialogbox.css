@@ -19,6 +19,7 @@
   justify-content: end;
   gap: 8px;
   flex-wrap: wrap;
+  margin-top: 32px;
 }
 
 .dialog-form .btn {
@@ -49,6 +50,7 @@
   display: block;
   margin-left: auto;
   padding: 8px;
+  border: none;
 }
 
 .dialog-form .close-btn .icon {

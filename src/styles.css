@@ -152,6 +152,22 @@ hr {
   margin: 1rem 0 !important;
 }
 
+hr[data-label] {
+  position: relative;
+  overflow: visible;
+  width: 100%;
+}
+
+hr[data-label]::after {
+  content: attr(data-label);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0 0.5rem;
+  background-color: var(--form-color);
+}
+
 main {
   padding: var(--page-padding-y, 10px) var(--page-padding-x, 32px);
 }
@@ -1014,6 +1030,7 @@ li {
 
 .text-input > input:placeholder-shown ~ .invalid-msg {
   max-height: 0 !important;
+  margin: 0;
 }
 
 .text-input > input:invalid ~ .invalid-msg,
