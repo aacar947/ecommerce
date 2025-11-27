@@ -35,6 +35,13 @@
   padding-right: 36px;
 }
 
+.searchbar .search-icon {
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  transform: translateY(-50%);
+}
+
 .search-result {
   height: 100%;
   overflow-y: auto;

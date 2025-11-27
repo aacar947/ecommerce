@@ -157,7 +157,7 @@ function ProductActionButtons({ action, dispatchAction }) {
         <>
           <hr className='pale' data-label='or' />
           <p className='pale'>You can add a new product</p>
-          <Btn className='action-btn' onClick={() => dispatchAction(PRODUCT_ACTIONS.add)}>
+          <Btn className='action-btn confirm' onClick={() => dispatchAction(PRODUCT_ACTIONS.add)}>
             Add Product
           </Btn>
         </>

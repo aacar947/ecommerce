@@ -4,6 +4,8 @@ import useProductContext from '../../../hooks/useProductContext';
 import SearchBar from '../../SearchBar';
 import Btn from '../../Btn';
 import { PRODUCT_ACTIONS } from '../../../utils/storeActions';
+import useDebouncedCallback from '../../../hooks/useDebouncedCallback';
+import FlatBtn from '../../FlatBtn';
 
 export default function ProductSearch({ dispatchAction }) {
   const setSelectedProduct = useProductContext((s) => s?.setProduct);
@@ -14,12 +16,15 @@ export default function ProductSearch({ dispatchAction }) {
   const products = useMemo(() => data?.pages?.reduce((acc, { products }) => [...acc, ...products], []), [data]);
   const total = data?.pages?.[0]?.total;
 
-  const handleSearch = (e) => {
-    const query = e.target.query.value;
-    if (!query || query === '') return;
-    dispatchAction(PRODUCT_ACTIONS.idle);
-    setQuery(query);
-  };
+  const handleSearch = useDebouncedCallback(
+    (e) => {
+      const query = e.target.value;
+      if (!query || query === '') return;
+      dispatchAction(PRODUCT_ACTIONS.idle);
+      setQuery(query);
+    },
+    [dispatchAction, setQuery]
+  );
 
   useEffect(() => {
     if (query === '') {
@@ -41,15 +46,8 @@ export default function ProductSearch({ dispatchAction }) {
       <>
         <p className='pale'>Search for an existing product to update or delete</p>
         <br />
-        <SearchBar ref={inputRef} className='product-search flex' onSubmit={handleSearch} placeholder='Search by name, sku or id'>
-          <Btn type='submit' className='small-btn'>
-            Search
-          </Btn>
-          {products !== undefined && (
-            <Btn className='small-btn' onClick={handleClearSearch}>
-              Clear
-            </Btn>
-          )}
+        <SearchBar autoComplete='off' onChange={handleSearch} ref={inputRef} className='product-search flex' placeholder='Search by name, sku or id'>
+          {products !== undefined && <FlatBtn icon='/icons/circled-cross.svg' className='small-btn clear-search-btn' onClick={handleClearSearch} />}
         </SearchBar>
       </>
       <SearchResults total={total} productCount={products?.length} fetchMore={fetchNextPage} hasMore={hasNextPage} fetchLimit={limit} products={products} isFetching={isFetching && query !== ''} />
@@ -64,7 +62,11 @@ function SearchResults({ products, productCount, total, isFetching, fetchMore, h
   if (products === undefined && !isFetching) return null;
   return (
     <div className='store-search-results flex-col'>
-      {products?.length === 0 && !isFetching && <strong className='pale'>No results found.</strong>}
+      {products?.length === 0 && !isFetching && (
+        <p className='pale text-center'>
+          <strong>No results found.</strong>
+        </p>
+      )}
       {products?.map((product) => {
         const isSelected = selected?.id === product?.id;
         return <MemoizedSearchResults key={'store-product-card' + product.id} product={product} isSelected={isSelected} />;

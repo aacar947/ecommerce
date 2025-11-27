@@ -7,14 +7,14 @@ import { slugParser } from '../../../utils/slugParser';
 import useImageUpload from '../../../hooks/useImageUpload';
 import ImageFilesProvider, { FILE_ACTIONS } from '../../../contexts/ImageFilesProvider';
 import useImageFiles from '../../../hooks/useImageFiles';
-import CircularProgressBar from '../../../components/CircularProgressBar';
+import CircularProgressBar from '../../CircularProgressBar';
 import useConfirm from '../../../hooks/useConfirm';
 import { PRODUCT_ACTIONS } from '../../../utils/storeActions';
 import UpdateForm from '../../UpdateForm';
 import Btn from '../../Btn';
 import Icon from '../../Icon';
 
-export default function UpdateProduct({ action }) {
+export default function UpdateProduct({ action: productAction }) {
   const submitForm = useSubmit();
   const confirm = useConfirm();
   const selectedProduct = useProductContext((s) => s?.product);
@@ -71,13 +71,13 @@ export default function UpdateProduct({ action }) {
     submitForm(changedFormData, { method: 'post', action: '/store?tab=products' });
   };
 
-  const active = (action.type === PRODUCT_ACTIONS.add && !selectedProduct) || (action.type === PRODUCT_ACTIONS.update && selectedProduct?.id);
+  const active = (productAction.type === PRODUCT_ACTIONS.add && !selectedProduct) || (productAction.type === PRODUCT_ACTIONS.update && selectedProduct?.id);
 
   return (
     <div className={'update-product-wrapper' + (active ? ' active' : '')}>
       <div>
-        {action?.type && <hr />}
-        {action?.title && <h3>{action.title}</h3>}
+        {productAction?.type && <hr />}
+        {productAction?.title && <h3>{productAction.title}</h3>}
         <UpdateForm
           submitBtnClass='confirm'
           submitText={submitText}
@@ -88,7 +88,7 @@ export default function UpdateProduct({ action }) {
           method='post'
           action='/store?tab=products'
           submittingMsg={submittingMsg}
-          successMsg={action === 'add' ? 'Product added successfully.' : 'Product updated successfully.'}
+          successMsg={productAction.type === 'add' ? 'Product added successfully.' : 'Product updated successfully.'}
         >
           {selectedProduct?.id && <input type='hidden' name='productId' value={selectedProduct?.id} />}
           <ImageFilesProvider>

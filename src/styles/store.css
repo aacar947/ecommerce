@@ -118,6 +118,31 @@
   max-width: 512px;
 }
 
+.product-search input {
+  padding-right: 36px;
+}
+
+.product-search .clear-search-btn {
+  position: absolute;
+  right: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0 8px !important;
+  font-size: 1.2em;
+  height: 100%;
+  width: 32px;
+}
+
+.product-search .clear-search-btn:hover {
+  background-color: var(--light-gray-100);
+}
+
+.product-search .clear-search-btn .icon {
+  width: 20px;
+  height: 20px;
+}
+
 .store-products .form-wrapper {
   --form-max-width: 100%;
 }
