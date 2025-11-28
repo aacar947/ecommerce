@@ -1,7 +1,7 @@
 import '../styles/orders.details.css';
 import '../styles/orders.css';
 import { useEffect } from 'react';
-import { Navigate, useNavigate, useParams } from 'react-router';
+import { Navigate, useParams } from 'react-router';
 import useOrder from '../hooks/useOrder';
 import useBreadCrumbs from '../hooks/useBreadCrumbs';
 import useModal from '../hooks/useModal';
@@ -12,7 +12,6 @@ import FlatBtn from '../components/FlatBtn';
 import Icon from '../components/Icon';
 import { statusIcons } from '../utils/statusIcons';
 import ProductReviewModal from '../components/ProductReviewModal';
-import { slugParser } from '../utils/slugParser';
 import useUser from '../hooks/useUser';
 
 export default function OrderDetails() {
