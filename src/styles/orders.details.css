@@ -2,22 +2,22 @@
   --table-row-gap: 8px;
 }
 
-.action-btn {
+#order-details .action-btn {
   color: var(--light-gray-800);
   min-width: fit-content;
   flex-basis: 400px;
 }
 
-.action-btn .icon {
+#order-details .action-btn .icon {
   background-color: var(--light-gray-600);
   margin-right: 4px;
 }
 
-.action-btn:hover .icon {
+#order-details .action-btn:hover .icon {
   background-color: var(--confirm-color);
 }
 
-.action-btn:hover {
+#order-details .action-btn:hover {
   color: var(--confirm-color);
 }
 
