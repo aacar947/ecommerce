@@ -202,7 +202,7 @@ function Products({ products = [] }) {
     navigate(`/p/${slug}`);
   };
   return (
-    <ProductReviewTable products={products} onHeaderClick={handleHeaderClick}>
+    <ProductReviewTable products={products}>
       {(product) => {
         if (!product) return null;
         return <ProductReviewRow productId={product.id} />;
