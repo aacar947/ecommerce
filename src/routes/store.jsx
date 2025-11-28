@@ -144,7 +144,24 @@ function ProductsTabActions() {
   return (
     <>
       <ProductActionButtons action={action} dispatchAction={dispatchAction} />
-      <UpdateProduct action={action} />
+      <UpdateProduct
+        title='Update Product'
+        className={action.type === PRODUCT_ACTIONS.update && selectedProduct?.id ? 'active' : ''}
+        submitText='Save'
+        submittingMsg='Updating Product'
+        successMsg='Product updated successfully'
+        selectedProduct={selectedProduct}
+        onClose={() => dispatchAction(null)}
+      />
+      <UpdateProduct
+        title='Add Product'
+        className={action.type === PRODUCT_ACTIONS.add && !selectedProduct ? 'active' : ''}
+        submitText='Add'
+        submittingMsg='Adding Product'
+        successMsg='Product added successfully'
+        dispatchAction={dispatchAction}
+        onClose={() => dispatchAction(null)}
+      />
     </>
   );
 }
@@ -152,7 +169,7 @@ function ProductsTabActions() {
 function ProductActionButtons({ action, dispatchAction }) {
   return (
     <>
-      <ProductSearch dispatchAction={dispatchAction} />
+      <ProductSearch dispatchAction={dispatchAction} action={action} />
       {!action.type && (
         <>
           <hr className='pale' data-label='or' />

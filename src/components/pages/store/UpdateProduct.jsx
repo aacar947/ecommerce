@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useRef, useState, useId, useCallback } from 'react';
-import { Link, useSubmit } from 'react-router';
+import { useEffect, useMemo, useRef, useState, useId } from 'react';
+import { Link } from 'react-router';
 import useProductContext from '../../../hooks/useProductContext';
 import useUpdateFormContext from '../../../hooks/useUpdateFormContext';
 import useCategories from '../../../hooks/useCategories';
@@ -9,15 +9,13 @@ import ImageFilesProvider, { FILE_ACTIONS } from '../../../contexts/ImageFilesPr
 import useImageFiles from '../../../hooks/useImageFiles';
 import CircularProgressBar from '../../CircularProgressBar';
 import useConfirm from '../../../hooks/useConfirm';
-import { PRODUCT_ACTIONS } from '../../../utils/storeActions';
 import UpdateForm from '../../UpdateForm';
 import Btn from '../../Btn';
+import FlatBtn from '../../FlatBtn';
 import Icon from '../../Icon';
 
-export default function UpdateProduct({ action: productAction }) {
-  const submitForm = useSubmit();
+export default function UpdateProduct({ title, className, submitText, submittingMsg, successMsg, selectedProduct, onClose }) {
   const confirm = useConfirm();
-  const selectedProduct = useProductContext((s) => s?.product);
   const descRef = useRef();
   const { data: categories } = useCategories();
 
@@ -54,11 +52,9 @@ export default function UpdateProduct({ action: productAction }) {
     else if (descRef.current) descRef.current.value = '';
   }, [selectedProduct]);
 
-  const submittingMsg = selectedProduct ? 'Updating Product...' : 'Creating Product...';
-  const submitText = selectedProduct ? 'Update' : 'Add';
-
-  const handleSubmit = async (e, changedFormData) => {
+  const handleSubmit = async (e, changedFormData, fetcher) => {
     e.preventDefault();
+    if (!fetcher || fetcher.state === 'submitting') return;
     const isConfirmed = await confirm({
       title: `${submitText} Product`,
       message: `Are you sure you want to ${submitText.toLowerCase()} this product?`,
@@ -68,16 +64,19 @@ export default function UpdateProduct({ action: productAction }) {
     const formData = new FormData(e.target);
     const productId = formData.get('productId');
     if (productId) changedFormData.set('productId', productId);
-    submitForm(changedFormData, { method: 'post', action: '/store?tab=products' });
+    fetcher.submit(changedFormData, { method: 'post', action: '/store?tab=products' });
   };
 
-  const active = (productAction.type === PRODUCT_ACTIONS.add && !selectedProduct) || (productAction.type === PRODUCT_ACTIONS.update && selectedProduct?.id);
+  const handleClear = () => {
+    if (onClose) onClose();
+  };
 
   return (
-    <div className={'update-product-wrapper' + (active ? ' active' : '')}>
+    <div className={'update-product-wrapper' + (className ? ' ' + className : '')}>
       <div>
-        {productAction?.type && <hr />}
-        {productAction?.title && <h3>{productAction.title}</h3>}
+        <hr />
+        <FlatBtn className='close-update-form-btn' icon='/icons/arrow-down.svg' onClick={handleClear} />
+        {title && <h3>{title}</h3>}
         <UpdateForm
           submitBtnClass='confirm'
           submitText={submitText}
@@ -88,7 +87,7 @@ export default function UpdateProduct({ action: productAction }) {
           method='post'
           action='/store?tab=products'
           submittingMsg={submittingMsg}
-          successMsg={productAction.type === 'add' ? 'Product added successfully.' : 'Product updated successfully.'}
+          successMsg={successMsg}
         >
           {selectedProduct?.id && <input type='hidden' name='productId' value={selectedProduct?.id} />}
           <ImageFilesProvider>
@@ -328,7 +327,7 @@ function UpdateFormFooter() {
   const slug = slugParser.slugify({ id: data?.id, title: data?.title });
 
   useEffect(() => {
-    resetActionData();
+    if (selectedProduct && selectedProduct.id !== actionData?.data?.id) resetActionData();
   }, [selectedProduct, resetActionData]);
 
   if (!action) return null;

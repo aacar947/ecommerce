@@ -4,6 +4,21 @@
   background-color: white;
 }
 
+.close-update-form-btn {
+  width: 100%;
+  text-align: center;
+  border: none;
+  padding: 8px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.close-update-form-btn .icon {
+  transform: rotate(180deg);
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .content-title {
   margin-block: 8px;
 }

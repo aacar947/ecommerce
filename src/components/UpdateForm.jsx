@@ -5,7 +5,6 @@ import toast from 'react-hot-toast';
 import UpdateFormProvider from '../contexts/UpdateFormProvider';
 import useUpdateFormContext from '../hooks/useUpdateFormContext';
 import Btn from './Btn';
-import { useNavigation } from 'react-router';
 
 const STATES = {
   submitting: 'submitting',
@@ -21,6 +20,7 @@ export default function UpdateForm(props) {
 }
 
 function UpdateFromContent({ inputs = [], title = '', onSubmit, headerContent, successMsg = 'Updated successfully.', errorMsg = 'Something went wrong.', submittingMsg = 'Updating...', children, ...rest }) {
+  const fetcher = useUpdateFormContext((s) => s?.fetcher);
   const setHasChanges = useUpdateFormContext((s) => s?.setHasChanges);
   const updateChanges = useUpdateFormContext((s) => s?.updateChanges);
   const changedFieldsRef = useUpdateFormContext((s) => s?.changedFieldsRef);
@@ -54,14 +54,14 @@ function UpdateFromContent({ inputs = [], title = '', onSubmit, headerContent, s
       else formData.append(name, value);
     }
 
-    if (onSubmit) onSubmit(e, formData);
+    if (onSubmit) onSubmit(e, formData, fetcher);
   };
 
   return (
     <>
       <FormHeader title={title} successMsg={successMsg} errorMsg={errorMsg} submittingMsg={submittingMsg} />
       {headerContent}
-      <Form {...rest} onSubmit={handleSubmit} inputs={inputs} onChange={onChange} noBtn>
+      <Form {...rest} fetcher={fetcher} onSubmit={handleSubmit} inputs={inputs} onChange={onChange} noBtn>
         {children}
         <SubmitBtn submitText={rest.submitText} className={rest.submitBtnClass} />
       </Form>
@@ -71,10 +71,10 @@ function UpdateFromContent({ inputs = [], title = '', onSubmit, headerContent, s
 
 export function SubmitBtn({ submitText, ...rest }) {
   const hasChanges = useUpdateFormContext((s) => s?.hasChanges);
-  const { state } = useNavigation();
+  const fetcher = useUpdateFormContext((s) => s?.fetcher);
   return (
     <div className='btn-container'>
-      <Btn {...rest} type='submit' disabled={state === 'submitting' || !hasChanges}>
+      <Btn {...rest} type='submit' disabled={fetcher?.state === 'submitting' || !hasChanges}>
         {submitText}
       </Btn>
     </div>
@@ -82,7 +82,7 @@ export function SubmitBtn({ submitText, ...rest }) {
 }
 
 function FormHeader({ title, successMsg, errorMsg, submittingMsg }) {
-  const navigation = useNavigation();
+  const fetcher = useUpdateFormContext((s) => s?.fetcher);
   const actionData = useUpdateFormContext((s) => s?.actionData);
   const toastId = useRef(null);
   const [updateState, setUpdateState] = useState(null);
@@ -90,10 +90,10 @@ function FormHeader({ title, successMsg, errorMsg, submittingMsg }) {
   const _errorMsg = typeof errorMsg === 'function' ? errorMsg(actionData) : errorMsg;
 
   useEffect(() => {
-    if (navigation.state === 'submitting') {
+    if (fetcher?.state === 'submitting') {
       toastId.current = toast.loading(submittingMsg);
       setUpdateState(STATES.submitting);
-    } else if (navigation.state === 'idle' && actionData) {
+    } else if (fetcher?.state === 'idle' && actionData) {
       if (actionData.error) {
         setUpdateState(STATES.idle);
         toast.error(_errorMsg, { id: toastId.current });
@@ -105,7 +105,7 @@ function FormHeader({ title, successMsg, errorMsg, submittingMsg }) {
     return () => {
       if (toastId.current) toast.dismiss(toastId.current);
     };
-  }, [navigation.state, actionData, setUpdateState, _successMsg, _errorMsg, submittingMsg]);
+  }, [fetcher?.state, actionData, setUpdateState, _successMsg, _errorMsg, submittingMsg]);
 
   return (
     <>

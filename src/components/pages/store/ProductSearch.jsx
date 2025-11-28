@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, memo } from 'react';
+import { useEffect, useMemo, useRef, useState, memo, useCallback } from 'react';
 import useSearchStoreProducts from '../../../hooks/useSearchStoreProducts';
 import useProductContext from '../../../hooks/useProductContext';
 import SearchBar from '../../SearchBar';
@@ -7,7 +7,7 @@ import { PRODUCT_ACTIONS } from '../../../utils/storeActions';
 import useDebouncedCallback from '../../../hooks/useDebouncedCallback';
 import FlatBtn from '../../FlatBtn';
 
-export default function ProductSearch({ dispatchAction }) {
+export default function ProductSearch({ dispatchAction, action }) {
   const setSelectedProduct = useProductContext((s) => s?.setProduct);
   const [query, setQuery] = useState('');
   const inputRef = useRef();
@@ -21,9 +21,10 @@ export default function ProductSearch({ dispatchAction }) {
       const query = e.target.value;
       if (!query || query === '') return;
       dispatchAction(PRODUCT_ACTIONS.idle);
+      setSelectedProduct(null);
       setQuery(query);
     },
-    [dispatchAction, setQuery]
+    [dispatchAction, setQuery, setSelectedProduct]
   );
 
   useEffect(() => {
@@ -35,11 +36,16 @@ export default function ProductSearch({ dispatchAction }) {
     if (query !== '' && products === undefined) fetchNextPage();
   }, [query, reset, fetchNextPage, products === undefined]);
 
-  const handleClearSearch = () => {
+  const handleClearSearch = useCallback(() => {
     setQuery('');
     setSelectedProduct(null);
     dispatchAction(null);
-  };
+  }, [setQuery, setSelectedProduct, dispatchAction]);
+
+  useEffect(() => {
+    if (action.type !== null) return;
+    handleClearSearch();
+  }, [action.type, handleClearSearch]);
 
   return (
     <>
