@@ -5,7 +5,7 @@
 #order-details .action-btn {
   color: var(--light-gray-800);
   min-width: fit-content;
-  flex-basis: 400px;
+  flex: 1 1 192px;
 }
 
 #order-details .action-btn .icon {
@@ -25,10 +25,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-}
-
-#order-details .btn-group .action-btn {
-  flex: 1 1 192px;
 }
 
 #order-details .review-btn {
