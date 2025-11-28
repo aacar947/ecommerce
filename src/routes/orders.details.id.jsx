@@ -196,11 +196,6 @@ function AddressContainer({ address = {} }) {
 }
 
 function Products({ products = [] }) {
-  const navigate = useNavigate();
-  const handleHeaderClick = (product) => {
-    const slug = slugParser.slugify({ id: product.id, title: product.title });
-    navigate(`/p/${slug}`);
-  };
   return (
     <ProductReviewTable products={products}>
       {(product) => {
