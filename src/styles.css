@@ -88,6 +88,11 @@
   scroll-behavior: smooth;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 fieldset {
   border: 1px solid var(--light-gray-400);
   border-radius: var(--container-border-radius);

@@ -28,9 +28,13 @@ th {
 }
 
 .product-review-list .product-title {
+  display: block;
   height: 1.5em;
   position: relative;
   min-height: fit-content;
+}
+.product-review-list .product-title:hover {
+  color: inherit;
 }
 
 .product-review-list .product-title span {

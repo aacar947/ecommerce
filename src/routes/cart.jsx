@@ -3,7 +3,7 @@ import '../styles/splitpage.css';
 import useCart from '../hooks/useCart';
 import Grid, { Row, Col } from '../components/Grid';
 import { memo, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import PageSpinner from '../components/PageSpinner';
 import useDebounce from '../hooks/useDebounce';
 import Input from '../components/Input';
@@ -105,12 +105,14 @@ const CartProduct = memo(
 
     return (
       <div className='card cart-product flex'>
-        <img className='image' onClick={() => navigate(url)} src={product.thumbnail} alt={product.title} />
+        <Link to={url}>
+          <img className='image' src={product.thumbnail} alt={product.title} />
+        </Link>
         <div className='desc'>
           <div className='flex product-info'>
-            <span className='product-title text-overflow-ellipsis' onClick={() => navigate(url)}>
+            <Link className='product-title text-overflow-ellipsis' to={url}>
               {product.title}
-            </span>
+            </Link>
             <div className='price-tag'>
               <div className='price-info flex-col'>
                 {prevPrice && <span className='prev-price'>${prevPrice}</span>}

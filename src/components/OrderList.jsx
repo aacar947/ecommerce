@@ -1,5 +1,5 @@
-import { memo, useEffect, useMemo, useRef, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { memo, useEffect, useMemo, useRef } from 'react';
+import { Link } from 'react-router';
 import useOrderStatusList from '../hooks/useOrderStatusList';
 import useFilterValidation from '../hooks/useFilterValidation';
 import useObserver from '../hooks/useObserver';
@@ -45,10 +45,9 @@ function Order({ order }) {
   const { id: orderId, status, orderedAt, discountedTotal } = order;
   const date = new Date(orderedAt).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' });
   const id = 'order-' + orderId;
-  const navigate = useNavigate();
 
   return (
-    <div className='order-card' key={id} aria-label={id} onClick={() => navigate('/orders/details/' + orderId)}>
+    <Link className='order-card' key={id} aria-label={id} to={`/orders/details/${orderId}`}>
       <div className='order-header flex'>
         <div className='order-header-item order-images flex'>
           <div className='order-images-body flex'>
@@ -77,7 +76,7 @@ function Order({ order }) {
       <div className='right-arrow-icon'>
         <Icon icon='/icons/arrow-right.svg' />
       </div>
-    </div>
+    </Link>
   );
 }
 

@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import ImageViewer, { ImageViewerSkeleton } from './ImageViewer';
 import StarRating from './StarRating';
 import PriceTag from './PriceTag';
@@ -12,11 +12,10 @@ import useUser from '../hooks/useUser';
 import { slugParser } from '../utils/slugParser';
 
 export default function ProductCard({ product }) {
-  const navigate = useNavigate();
   const url = '/p/' + slugParser.slugify({ title: product?.title, id: product?.id });
 
   return (
-    <div className='card flex-col' onClick={() => navigate(url)}>
+    <Link className='card flex-col' to={url}>
       <ImageViewer images={product?.images} />
       <div className='desc'>
         <span className='title'>{product?.title}</span>
@@ -25,7 +24,7 @@ export default function ProductCard({ product }) {
         <div className='shipping-info pale'>{product?.shippingInformation}</div>
       </div>
       <ActionBtns product={product} />
-    </div>
+    </Link>
   );
 }
 
